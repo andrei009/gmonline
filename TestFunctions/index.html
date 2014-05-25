@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    //init socket
+    var socket = io.connect('http://andrei009.kd.io:3000');
+jQuery(function($){
+
+    socket.on('message', function (pack) {
+    var from = pack.socket;
+    var data = pack.data;
+    
+    if (!data.flag) return; 
+	switch(data.flag) {
+    
+        case 'welcome':
+            
+            $('body').append(data.msg);
+        break;
+	   
+	   case 'chat':
+	        
+	        $('body').append('<br>Message from '+ from +' '+ data.message);
+	   break;
+    }
+
+  });
+});
+    
+    function sendMessage(type, data){
+        socket.emit('message',{type: type ,data: data});
+    }
+
+    function sendSomething(){
+        
+        //sendMessage('broadcast',{flag:'chat',message: 'Hi !'});
+        sendMessage('broadcastvolatile',{flag:'chat',message: 'Hi !'});
+    }
+    </script>
+</head>
+
+<body>
+
+
+
+<button onClick="sendSomething()">Shout to all</button>
+</body>
