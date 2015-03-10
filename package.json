@@ -1,0 +1,9 @@
+{
+  "name": "gmonline",
+  "version": "0.0.1",
+  "description": "nothing yet",
+  "dependencies": {
+    "lodash": "^3.5.0",
+    "socket.io": "0.9.16"
+  }
+}
